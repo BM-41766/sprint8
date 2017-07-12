@@ -1,0 +1,423 @@
+﻿@{
+    ViewBag.Title = "AdminHome";
+}
+
+<html><head><title>
+    </title>
+          @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
+          <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+          <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+          <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css" rel="stylesheet" type="text/css" />
+
+          <script src="~/content/script/Admin_View_Profile.js"></script>
+
+          <script src="~/content/script/Admin_Edit_User.js"></script>
+      
+          <script src="~/content/script/Admin_Delete.js"></script>
+          <script src="~/content/script/Admin_Suspnd.js"></script>
+
+          <script src="~/content/script/Admin_Approve_Btn.js"></script>
+
+          <link href="~/content/stylesheet/StyleSheet_odersummery.css" rel="stylesheet" />
+          <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+         @*<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>*@
+    <script>
+        $(document).ready(function () {
+            $("#pnding_Approval").click(function () {
+                var loginid1 = $(this).data("id");
+                // var loginid1 = $("#id").val();
+                alert("sahgdakj");
+                alert(loginid1);
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'Json',
+                    url: 'Home/Aproval_pending',
+                    data: { loginid: loginid1 },
+                    success: function (data) {
+                        for (var x = 0; x < data.length; x++) {
+                            console.log("ID: " + data[x].loginid + " name: " + data[x].firstname + " picture: " + data[x].profilepic);
+                            var html = '<div style="background-color:white;width:400px;margin-left:150px;margin-top:10px;"><img src="' + data[x].profilepic + '"style="height:55px;width:30px;"/>' + '<label style="margin-top:-35px; margin-left:50px;">' + data[x].firstname + data[x].surname + '</label> <input type="button" value="Approve" id="Aprove" style="margin-left:135px;margin-top:-35px;" data-id="' + data[x].loginid + '"/><input type="button" value="Reject" id="reject" style="margin-left:135px;margin-top:-35px;"<br></div>';
+                            $(".Approval_pending").append(html);
+
+                        }
+
+                    }
+                })
+            })
+        });
+        $(document).ready(function () {
+            $("#categry").click(function () {
+               // alert("dfgm");
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'Json',
+                    url: 'Home/fun1',
+                    data: { },
+                    success: function (data) {
+                       // alert("hlooooo");
+                        var html = '<div style="background-color:white;width:650px;height:250px;margin-left:250px;margin-top:-90px;"><a href="#"style="text-decoration:none;margin-left:20px;"id="frnture" >Furniture</a><hr><br><br><br><br><br><br><br><br><input type="submit" value="save" style="margin-left:300px;background-color:green;height:30px;width:100px;"/></div>';
+                        $(".categry").append(html);
+                    }
+                })
+            })
+        });
+        $(document).on('click', '#frnture', function () {
+            $.ajax({
+                type: 'GET',
+                dataType: 'Json',
+                url: 'Home/fun1',
+                data: { },
+                success: function (data) {
+                   // alert("hlooooo");
+                    var html = '<div style="background-color:white;width:650px;height:250px;margin-left:250px;margin-top:-210px;"><a href="#"style="text-decoration:none;margin-left:20px;"id="setngfrnture" >Seating Furniture</a><hr><br><br><br><a href="#"style="text-decoration:none;margin-left:20px;"id="dinig" >Dining</a><hr></div>';
+                    $(".categry").append(html);
+                }
+            })
+        });
+        $(document).on('click', '#setngfrnture', function () {
+            $.ajax({
+                type: 'GET',
+                dataType: 'Json',
+                url: 'Home/fun1',
+                data: {},
+                success: function (data) {
+                    //alert("hlooooo");
+                    var html = '<div style="background-color:white;width:650px;height:250px;margin-left:250px;margin-top:-220px;"><a href="#"style="text-decoration:none;margin-left:40px;"id="benbag" >Bean Bag</a><hr><a href="#"style="text-decoration:none;margin-left:40px;"id="chair" >chair</a><hr><br></div>';
+                    $(".categry").append(html);
+                }
+            })
+        });
+        $(document).on('click', '#dinig', function () {
+            $.ajax({
+                type: 'GET',
+                dataType: 'Json',
+                url: 'Home/fun1',
+                data: {},
+                success: function (data) {
+                   // alert("hlooooo");
+                    var html = '<div style="background-color:white;width:650px;height:250px;margin-left:250px;margin-top:-160px;"><hr><a href="#"style="text-decoration:none;margin-left:40px;"id="table" >Tables</a><br></div>';
+                    $(".categry").append(html);
+                }
+            })
+        });
+        $(document).ready(function () {
+            $("#product").click(function () {
+                alert("gfdf");
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'Json',
+                    url: 'Home/products1',
+                    data: {},
+                    success: function (data) {
+                       // alert("hiiiiii");
+                        for (var x = 0; x < data.length; x++) {
+                            console.log("ID: " + data[x].product_id + " name: " + data[x].product_name + " picture: " + data[x].product_imag+"price:"+data[x].product_price);
+                            var html = '<div style="background-color:white;width:650px;height:200px;margin-left:250px;margin-top:-160px;"><img src="' + data[x].product_imag + '"style="width:50px;height:50px;"/>' + '<label>Name:' + data[x].product_name + '</label><label>Rs:' + data[x].product_price + '</label></div><br><br>';
+                            $(".product").append(html);
+                        }
+                    }
+                })
+            })
+        });
+
+        $(document).ready(function () {
+            $("#custmer").click(function () {
+                alert("gfdf");
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'Json',
+                    url: 'Home/customers',
+                    data: {},
+                    success: function (data) {
+                        alert("hiiiiii");
+                        for (var x = 0; x < data.length; x++) {
+                            console.log("ID: " + data[x].customer_id + " name: " + data[x].customer_name + " Addreess: " + data[x].customer_address + "Email:" + data[x].customer_email + "Phone No:" + data[x].customer_phone + "Picture:" + data[x].customer_profile);
+                            var html = '<div style="background-color:white;width:650px;height:200px;margin-left:250px;margin-top:-160px;"><img src="' + data[x].customer_profile + '"style="width:50px;height:50px;"/>' + '<label class="label_js">' + data[x].customer_name + '</label><input type="submit" value="vieworofile" id="vewprfle" class="view_profile_btn" data-id="' + data[x].customer_id + '"/><br></div><br><br><br><br><br>';
+                            $(".customer").append(html);
+                        }
+                    }
+                })
+            })
+        });
+        $(document).on('click', '#vewprfle', function () {
+            var custmrid = $(this).data("id");
+            alert(custmrid);
+            $("#custmr").hide();
+            $.ajax({
+                type: 'POST',
+                dataType: 'Json',
+                url: 'Home/customers',
+                data: { customer_id: custmrid },
+                success: function (data) {
+                    alert("hiiiiii");
+                    for (var x = 0; x < data.length; x++) {
+                        console.log("ID: " + data[x].customer_id + " name: " + data[x].customer_name + " Addreess: " + data[x].customer_address + "Email:" + data[x].customer_email + "Phone No:" + data[x].customer_phone + "Picture:" + data[x].customer_profile);
+                        var html = '<div style="background-color:white;width:650px;height:200px;margin-left:250px;margin-top:-160px;"><img src="' + data[x].customer_profile + '"style="width:50px;height:50px;"/>' + '<label>Name:' + data[x].customer_name + '</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<label>Address:' + data[x].customer_address + '</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<label>Email:' + data[x].customer_email + '</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<label>Mob_no:' + data[x].customer_phone + '</label><br><br><br><br></div><br><br>';
+                        $(".customer1").append(html);
+                    }
+                }
+            })
+        });
+        $(document).ready(function () {
+            $("#oder_details").click(function () {
+                alert("gfdf");
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'Json',
+                    url: 'Home/order',
+                    data: {},
+                    success: function (data) {
+                        alert("hiiiiii");
+                        for (var x = 0; x < data.length; x++) {
+                            console.log("ID: " + data[x].order_id + " name: " + data[x].firstname + " lastname: " + data[x].lastname + "QTY:" + data[x].QTY + "Price:" + data[x].Price);
+                            var html = '<div style="background-color:white;width:650px;height:200px;margin-left:250px;margin-top:-160px;"><label>Name:' + data[x].firstname + '</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<label>Lastname:' + data[x].lastname + '</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<label>QTY:' + data[x].QTY + '</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<label>Price:' + data[x].Price + '</label><br></div><br><br>';
+                            $(".order").append(html);
+                        }
+                    }
+                })
+            })
+        });
+        $(document).ready(function () {
+            $("#sales").click(function () {
+                alert("hggjhgl");
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per month'],
+                    ['bean bag', 2],
+                    ['dinnerset', 2],
+                    ['sofaset', 1],
+                    ['ladies watches', 1],
+                    
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                   var options = { 'title': 'sales report', 'width': 550, 'height': 400 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                    chart.draw(data, options);
+                }
+            })
+        });
+
+        $(document).ready(function () {
+            $("#profit").click(function () {
+                alert("gfdf");
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'Json',
+                    url: 'Home/f1',
+                    data: {},
+                    success: function (data) {
+                        alert("hiiiiii");
+                        
+                        //for (var x = 0; x < data.length; x++) {
+                        //console.log("ID: " + data[x].order_id + " name: " + data[x].firstname + " lastname: " + data[x].lastname + "QTY:" + data[x].QTY + "Price:" + data[x].Price);
+                        var html = '<table align="center" border="5%" style="margin-top:20px;"><tr><td style="background-color:orange;">From</td><td>1-jan-2017</td><td style="background-color:orange;">To</td><td>31-may-2017</td><td></td></tr><tr style="background-color:blue;"><td>SL No.</td><td>Product</td><td>Purchase Cost</td><td>Selling Price</td><td>Profit/Loss</td></tr><tr><td>1</td><td>BeanBag</td><td>10000</td><td>20000</td><td>10000</td></tr><tr><td>2</td><td>Dinnerset</td><td>4590090</td><td>9798796</td><td>5208708</td></tr><tr><td>3</td><td>sofaset</td><td>10000</td><td>20000</td><td>10000</td></tr><tr><td>4</td><td>Ladies watches</td><td>1000</td><td>2000</td><td>1000</td></tr><tr><td></td><td></td><td></td><td>Total(INR)</td><td>5229708</td></tr></table>';
+                        $("#profitreprt").show();
+                        $(".profit1").append(html);
+                    }
+                })
+            })
+        });
+
+        $(document).ready(function () {
+            $("#custr").click(function () {
+                alert("gfdf");
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'Json',
+                    url: 'Home/f2',
+                    data: {},
+                    success: function (data) {
+                        alert("hiiiiii");
+                        var html = '<div style="background-color:white;width:650px;height:200px;margin-left:250px;margin-top:-160px;"><table border="5"><tr><th colspan="3">Statewise customer report</th><tr ba><td>Sl.No</td><td>State</td><td>Number of Customers</td></tr><tr><td>1</td><td>Kerala</td><td>1000</td></tr><tr><td>2</td><td>Karnadaka</td><td>5000</td></tr><tr><td>3</td><td>Goa</td><td>1000</td></tr><tr><td>4</td><td>Delhi</td><td>100000</td></tr><tr><td></td><td>Total</td><td>107000</td></tr></table><table border="5" style="margin-left:300px;margin-top:-180px;"><tr><th colspan="3">Countrywise customer report</th><tr ba><td>Sl.No</td><td>State</td><td>Number of Customers</td></tr><tr><td>1</td><td>India</td><td>107000</td></tr><tr><td>2</td><td>USA</td><td>15000</td></tr><tr><td>3</td><td>UAE</td><td>10000</td></tr><tr><td>4</td><td>UK</td><td>100</td></tr><tr><td></td><td>Total</td><td>132000</td></tr></table></div>';
+                            $(".customer1").append(html);
+                    }
+                })
+            })
+        });
+
+        $(document).ready(function () {
+            $("#tablerepot").click(function () {
+                alert("gfdf");
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'Json',
+                    url: 'Home/f3',
+                    data: {},
+                    success: function (data) {
+                        alert("hiiiiii");
+                        var html = '<div style="background-color:white;width:850px;height:300px;margin-left:250px;margin-top:-160px;"><table border="1"><tr><td>Input Parameters</td><td>From Date</td><td>To Date</td><td>The Report is a consolidated <br> report for the date given</td></tr><tr><th colspan="14">Individual report(Hours of usage)</th></tr><tr><th colspan="6">Weekdays Shift</th><th colspan="4">Weekend Shift</th><th colspan="4">Holiday Shift</th></tr><tr><td>SL.No</td><td>UserName</td><td>Morning shift</td><td>Office sift</td><td>Evening shift</td><td>Night shift</td><td>Morning shift</td><td>Office shift</td><td>Evening shift</td><td>Night shift</td><td>Morning shift</td><td>Office shift</td><td>Evening shift</td><td>Night shift</td></tr><tr><td>1</td><td>Arya</td><td>1</td><td>10</td><td>4</td><td>54</td><td>10</td><td>4</td><td>54</td><td>10</td><td>4</td><td>54</td><td>10</td><td>4</td></tr><tr><td>2</td><td>Manu</td><td>3</td><td>14</td><td>5</td><td>34</td><td>14</td><td>5</td><td>34</td><td>14</td><td>5</td><td>34</td><td>14</td><td>5</td></tr><tr><td>3</td><td>Ammu</td><td>5</td><td>32</td><td>6</td><td>45</td><td>32</td><td>6</td><td>45</td><td>32</td><td>6</td><td>45</td><td>32</td><td>6</td></tr><tr><td>4</td><td>Anu</td><td>6</td><td>23</td><td>7</td><td>6</td><td>23</td><td>7</td><td>6</td><td>23</td><td>7</td><td>6</td><td>23</td><td>7</td></tr></table></div>';
+                        $(".tabullar_report").append(html);
+                    }
+                })
+            })
+        });
+
+        $(document).ready(function () {
+            $("#tablerepot1").click(function () {
+                alert("gfdf");
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'Json',
+                    url: 'Home/f3',
+                    data: {},
+                    success: function (data) {
+                        alert("hiiiiii");
+                        var html = '<div style="background-color:white;width:850px;height:300px;margin-left:250px;margin-top:-160px;"><table border="1"><tr><td>Input Parameters</td><td>From Date</td><td>To Date</td><td>The Report is a consolidated <br> report for the date given</td></tr><tr><th colspan="14">Individual report(Hours of usage)</th></tr><tr><th colspan="6">Weekdays Shift</th><th colspan="4">Weekend Shift</th><th colspan="4">Holiday Shift</th></tr><tr><td>SL.No</td><td>State</td><td>Morning shift</td><td>Office sift</td><td>Evening shift</td><td>Night shift</td><td>Morning shift</td><td>Office shift</td><td>Evening shift</td><td>Night shift</td><td>Morning shift</td><td>Office shift</td><td>Evening shift</td><td>Night shift</td></tr><tr><td>1</td><td>KERALA</td><td>1291</td><td>21210</td><td>254</td><td>5452</td><td>1022</td><td>4212</td><td>5423</td><td>1031</td><td>4321</td><td>5432</td><td>1022</td><td>4212</td></tr><tr><td>2</td><td>GOA</td><td>2323</td><td>2114</td><td>521</td><td>3434212</td><td>1421</td><td>5212</td><td>3421</td><td>14325</td><td>5545</td><td>344545</td><td>144512</td><td>5213</td></tr><tr><td>3</td><td>DELHI</td><td>2125</td><td>2132</td><td>631</td><td>45313</td><td>3254</td><td>664</td><td>45645</td><td>32613</td><td>66431</td><td>45145</td><td>32540</td><td>66621</td></tr><tr><td>4</td><td>ASSAM</td><td>1316</td><td>2331</td><td>76463</td><td>6646</td><td>23641</td><td>731</td><td>631</td><td>23</td><td>7313</td><td>6664</td><td>2336</td><td>7664</td></tr></table></div>';
+                        $(".tabullar_report").append(html);
+                    }
+                })
+            })
+        });
+
+        $(document).ready(function () {
+            $("#trend").click(function () {
+                alert("hggjhgl");
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                      ['Month', 'Weekday shift', 'Weekend shift','Holiday shift'],
+                      ['Jan', 380, 400,450],
+                      ['Feb', 200, 50,350],
+                      ['Mar', 50, 400,0],
+                      ['Apr', 250, 600,580]
+                      
+                    ]);
+
+                    var options = {
+                        title: 'Company Performance',
+                        curveType: 'function',
+                        legend: { position: 'bottom' }
+                    };
+
+                    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+                    chart.draw(data, options);
+                }
+            })
+        });
+        $(document).ready(function () {
+        $("#trend1").click(function () {
+            alert("hggjhgl");
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                  ['Week', 'Moring shift', 'Evening shift','Night shif','Office shift'],
+                  ['week1', 1700, 400,100,100],
+                  ['week2', 200, 200,300,400],
+                  ['week3', 100, 0,500,100],
+                  ['week4', 100, 500,700,400],
+                  
+                      
+                ]);
+
+                var options = {
+                    title: 'Company Performance',
+                    curveType: 'function',
+                    legend: { position: 'bottom' }
+                };
+
+                var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+                chart.draw(data, options);
+            }
+        })
+        });
+    </script>
+    </head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12" style="background-color:#3b5998; height:60px;">
+                
+                @*<img src="~/content/imgs/fbok.png" style="height:30px; width:30px; margin-left:50px;" />*@<input type="text" placeholder="search facebook" style="margin-top: 10px; margin-left:10px;" /> <button type="button" class="glyphicon glyphicon-search" style="margin-left:-5px;height:25px;" ></button>@*<input type="button" value="search" style="color:white;" /><span class="glyphicon glyphicon-search"></span>*@
+
+                @*<input type="text" id="txtsearch" name="X_firstname" style="width:200px; margin-left:70px; height:20px; margin-top:10px;" class="form-control " placeholder="Search Facebook" />@{Html.TextBox("X_firstname");} <input type="button" value="search" id="search" name="cmd1" style="margin-left:-20px;" />*@
+
+                <!--<button type="button" class="btn btn-default" style="margin-left:50px; margin-top:5px; width:150px;">!-->
+                <!--<input type ="text" placeholder="Search Facebook" /><span class="glyphicon glyphicon-search"></span>!-->
+                @*<img src="@ViewData["profilepic"]" style="margin-left:400px; margin-top:5px; width:50px;" /><input type="hidden" value="@ViewData["mainloginid"]" id="X_mainloginid" />
+                <font color="white"> @ViewData["firstname"]@ViewData["lastname"]</font>*@
+                
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="margin-left:500px;">
+                    welcome to admin
+                    <span class="caret"></span>
+                </button>
+                    <input type="button" value="Logout"  />
+                </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12" style="background-color:silver;height:580px;" >
+                
+                @*<img src="@ViewData["profilepic"]" style="width:50px;" /><label style="margin-top:-40px; margin-left:55px;"> @ViewData["firstname"]@ViewData["lastname"] </label><br />Edit profile<br />
+                <a href="#" id="aprvfrnd" class="frnd">ApproveFriend</a><br />
+                <a href="#" id="frndsrch">Search friend</a><br />
+                <a href="#" id="nwsfed">News Feed</a><br />
+                <a href="#" id="updatestus">Status Update</a><br />
+                <a href="#" id="editprfle">Edit profile</a>*@
+
+                <i class="glyphicon glyphicon-pencil" style="color:blue;"></i><a href="#" id="useredit">user Profile</a><br />
+                <i class="glyphicon glyphicon-pencil" style="color:blue;"></i><a href="#" id="pnding_Approval">Pending Approval</a><br /><br />
+                <a href="#" id="categry" style="text-decoration:none;">category</a><br />
+                <a href="#" style="text-decoration:none;"id="profit">Profit Report</a><br />
+                <a href="#" style="text-decoration:none;" id="product">Product</a><br />
+                <a href="#" style="text-decoration:none;" id="custmer">Customer Report</a><br />
+                <a href="#" style="text-decoration:none;" id="custr">Report</a><br />
+                <a href="#" style="text-decoration:none;" id="oder_details">Order Summery</a><br />
+                <a href="#" style="text-decoration:none;" id="sales">Sales Report</a><br />
+                <label>Analytics</label><br />
+                <a href="#" style="text-decoration:none;" id="tablerepot">Tabular Report</a><br />
+                <a href="#" style="text-decoration:none;" id="tablerepot1">Tabular Report</a><br />
+                <a href="#" style="text-decoration:none;" id="trend">Trend(Graphical)</a><br />
+                <a href="#" style="text-decoration:none;" id="trend1">Trend(Graphical)</a>
+                    @*<pre style="width:450px; margin-left:300px;" hidden id="hde"></pre>*@<div class="usereditprofile" style="background-color:white; width:450px; margin-left:200px;"></div>
+                    <div class="proflelist"></div>
+                    <div class="Approval_pending"></div>
+                    <div class="categry"></div>
+                    <div class="product"></div>
+                    <div class="customer" id="custmr"></div>
+                    <div class="customer1"></div>
+                    <div class="order"></div>
+                    <div id="piechart" style="margin-left:200px;margin-top:-100px;"></div>
+                    <div class="profit1" style="margin-left: 300px; margin-top: -100px; background-color: white;width:500px;height:300px;" hidden id="profitreprt"></div>
+                <div class="tabullar_report"></div>
+                <div id="curve_chart" style="margin-left: 200px; margin-top: -100px;"></div>
+</div>
+
+           
+            </div>
+        </div>
+    
+          @*<div class="col-md-7" style="background-color: Silver; width: 450px; height:100px;">
+                <pre id="hide"><a href="#">Update Status</a>&nbsp;&nbsp;&nbsp;&nbsp;  <a href="#" id="lnkaddphoto">Add photos/video</a>&nbsp;&nbsp;&nbsp;&nbsp;   <a href="#">Writenotes</a><br />
+                <img src="@ViewData["profilepic"]" style="width:50px; margin-left:-110px;" class="profpic" /><input type="text" id="status" style="margin-left:20px;" placeholder="What's on your mind?" maxlength="140" /> <input type="button" id="btnpost" class="btn-primary" value="Post" style="margin-left:300px;" /> </pre><br />
+
+               <div class="col-md-7" style="background-color:Silver; width:450px;">
+                    <pre id="hide"><a href="#">Update Status</a>&nbsp;&nbsp;&nbsp;&nbsp;  <a href="#">Add photos/video</a>&nbsp;&nbsp;&nbsp;&nbsp;  <a href="#">Writenotes</a><br />
+                    <img src="@ViewData["profilepic"]" style="width:50px; margin-left:-110px;" /><input type="text" id="status" style="margin-left:20px;" placeholder="What's on your mind?" /> <input type="button" id="btnpost" class="btn-primary" value="Post" style="margin-left:300px;" /> </pre><br />
+                         </div>
+                <div class="posting" style="background-color:white;" hidden></div>
+                <div class="friend" style="background-color:white;" hidden></div>
+                <div id="dialog" style="display:none;" align="center" class="dialogue">
+                    <input type="file" id="filebrows" name="file" style="opacity: 0.0; filter: alpha(opacity=0); visibility:hidden" accept="image/png" onchange="document.getElementById('img').value = this.value" multiple /><input type="text" id="img" style="visibility:hidden" />
+                </div>
+            </div>
+
+            <div class="col-md-1" style="background-color:black; height:150px; width:120px;"><pre style="width:400px;">Your adds<div style="background-color:Blue;width:300px;height:475px; margin-left:50px;"></div></pre>
+        </div>
+    </div>
+    </div>*@
+    </body>
+</html>
